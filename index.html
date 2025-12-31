@@ -15,7 +15,7 @@ html,body{
   font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
 }
 
-/* ROOM */
+/* ===== ROOM UNIQUE (DECOR) ===== */
 .room{
   position:fixed;
   inset:0;
@@ -23,42 +23,48 @@ html,body{
   z-index:0;
 }
 
-/* ===== TOP SCREEN (STABLE) ===== */
-.top{
+/* ===== TOP SCREEN (TV DU MUR) ===== */
+.top-screen{
   position:fixed;
-  top:6%;
+  top:8%;
   left:50%;
   transform:translateX(-50%);
-  width:86vw;
+  width:85vw;
   max-width:1200px;
-  height:38vh;
-  background:#000;
+  height:36vh;
+  background:#0b0b0f;
   border-radius:18px;
-  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
   z-index:1;
-}
-.top img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  box-shadow:0 30px 120px rgba(0,0,0,.9);
 }
 
-/* ===== BOTTOM SCREEN (LOWER + WIDER) ===== */
-.bottom{
+.top-screen h1{
+  font-size:28px;
+  text-align:center;
+  line-height:1.3;
+}
+
+/* ===== BOTTOM INTERACTIVE SCREEN ===== */
+.bottom-screen{
   position:fixed;
-  bottom:2%;
+  bottom:3%;
   left:50%;
   transform:translateX(-50%);
   width:96vw;
   max-width:1400px;
   height:26vh;
   background:#000;
-  border-radius:28px;
+  border-radius:26px;
   overflow:hidden;
   z-index:2;
-  box-shadow:0 30px 120px rgba(0,0,0,.95);
+  box-shadow:0 40px 140px rgba(0,0,0,.95);
 }
-.bottom img{
+
+.bottom-screen img{
   width:100%;
   height:100%;
   object-fit:cover;
@@ -75,7 +81,7 @@ html,body{
 .live{
   position:absolute;
   top:12px;
-  left:18px;
+  left:16px;
   display:flex;
   align-items:center;
   gap:8px;
@@ -98,24 +104,24 @@ html,body{
   font-size:22px;
 }
 
-/* TEXT */
+/* CENTER TEXT */
 .center{
   position:absolute;
   top:45%;
   left:50%;
   transform:translate(-50%,-50%);
   font-size:24px;
-  text-shadow:0 0 20px rgba(255,255,255,.35);
+  text-shadow:0 0 20px rgba(255,255,255,.4);
 }
 
-/* EMOJIS */
+/* EMOJI MENU */
 .menu{
   position:absolute;
   bottom:18%;
   width:100%;
   display:flex;
   justify-content:center;
-  gap:26px;
+  gap:28px;
   font-size:30px;
 }
 .menu span{
@@ -140,15 +146,20 @@ html,body{
 
 <body>
 
+<!-- DECOR -->
 <div class="room"></div>
 
 <!-- TOP SCREEN -->
-<div class="top">
-  <img src="room1.jpg">
+<div class="top-screen">
+  <h1>
+    The St⭐R<br>
+    <strong>Is OnlyYou</strong><br>
+    <span style="opacity:.7;font-size:16px">Welcome to the future of interaction</span>
+  </h1>
 </div>
 
 <!-- BOTTOM SCREEN -->
-<div class="bottom">
+<div class="bottom-screen">
   <img src="nala.jpg">
 
   <div class="hud">
@@ -173,4 +184,4 @@ html,body{
 </div>
 
 </body>
-</html>
+</html>  
