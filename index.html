@@ -13,41 +13,53 @@ body{
   color:#fff;
 }
 
+/* HEADER */
 header{
-  padding:14px;
+  padding:12px;
   text-align:center;
-  font-size:1.3rem;
+  font-size:1.2rem;
   background:#0f1025;
 }
 
+/* ZONE ÉCRANS */
 #screens{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  grid-template-rows:repeat(2,1fr);
   gap:6px;
-  height:60vh;
   padding:6px;
 }
 
-iframe{
+/* CARRÉ STRICT */
+.screen{
+  position:relative;
+  width:100%;
+  aspect-ratio:1/1; /* 🔥 CARRÉ PARFAIT */
+  background:#000;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+/* IFRAME ADAPTÉ AU CARRÉ */
+.screen iframe{
+  position:absolute;
+  inset:0;
   width:100%;
   height:100%;
   border:none;
-  background:#000;
-  border-radius:12px;
 }
 
+/* MENU EMOJI */
 .menu{
-  padding:12px;
-  background:#12142b;
+  padding:10px;
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  background:#12142b;
 }
 
 button{
-  padding:16px;
-  font-size:1.4rem;
+  padding:14px 0;
+  font-size:1.6rem;
   border:none;
   border-radius:14px;
   background:linear-gradient(135deg,#1f2040,#2d2f5a);
@@ -61,10 +73,10 @@ button{
 <header>ONLYOU — Menu du Soir</header>
 
 <div id="screens">
-  <iframe></iframe>
-  <iframe></iframe>
-  <iframe></iframe>
-  <iframe></iframe>
+  <div class="screen"><iframe></iframe></div>
+  <div class="screen"><iframe></iframe></div>
+  <div class="screen"><iframe></iframe></div>
+  <div class="screen"><iframe></iframe></div>
 </div>
 
 <div class="menu">
@@ -86,15 +98,14 @@ button{
 </div>
 
 <script>
-let index = 0;
-const frames = document.querySelectorAll("iframe");
+let slot = 0;
+const frames = document.querySelectorAll(".screen iframe");
 
 function openVid(url){
-  frames[index].src = url;
-  index = (index + 1) % frames.length;
+  frames[slot].src = url;
+  slot = (slot + 1) % frames.length;
 }
 </script>
 
 </body>
 </html>
-  
