@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>ONLYOU – Menu du Soir</title>
+<title>ONLYOU — Menu du Soir</title>
 
 <style>
 *{
@@ -14,7 +14,7 @@
 
 html,body{
   width:100%;
-  overflow-x:hidden; /* 🔒 BLOQUE LE SCROLL HORIZONTAL */
+  overflow-x:hidden;
   background:#0b0b12;
   color:#fff;
   font-family:system-ui,-apple-system;
@@ -24,37 +24,56 @@ html,body{
 header{
   padding:14px;
   text-align:center;
-  font-size:1.2rem;
+  font-size:1.1rem;
   background:#0f1025;
+}
+
+/* 🌸 CADRE GLOBAL */
+#frame-global{
+  margin:12px;
+  padding:10px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#ff6fae33,#ff9ac833,#ff6fae33);
+  box-shadow:
+    0 0 25px #ff6fae55,
+    inset 0 0 25px #ff9ac822;
+  animation:warmGlow 6s ease-in-out infinite;
+}
+
+@keyframes warmGlow{
+  0%{box-shadow:0 0 18px #ff6fae44,inset 0 0 18px #ff9ac822;}
+  50%{box-shadow:0 0 32px #ff9ac888,inset 0 0 26px #ff6fae44;}
+  100%{box-shadow:0 0 18px #ff6fae44,inset 0 0 18px #ff9ac822;}
 }
 
 /* ZONE VIDÉOS */
 #screens{
   display:grid;
-  grid-template-columns:1fr 1fr; /* PAS DE vw */
-  gap:8px;
-  padding:8px;
-  width:100%;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-/* CARRÉ STRICT */
+/* 🔳 CADRE INDIVIDUEL */
 .screen{
   position:relative;
   width:100%;
   aspect-ratio:1/1;
-  background:#000;
-  border-radius:14px;
+  border-radius:18px;
   overflow:hidden;
+  background:#000;
+  border:2px solid #ff7fbf55;
+  box-shadow:
+    0 0 12px #ff7fbf44,
+    inset 0 0 12px #ffb3d955;
 }
 
-/* IFRAME VERROUILLÉ */
+/* IFRAME */
 .screen iframe{
   position:absolute;
-  top:0;left:0;
+  inset:0;
   width:100%;
   height:100%;
   border:0;
-  max-width:100%;
 }
 
 /* MENU EMOJI */
@@ -62,17 +81,17 @@ header{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
-  padding:10px;
-  background:#12142b;
+  padding:12px;
 }
 
 .menu button{
   padding:16px 0;
   font-size:1.6rem;
   border:none;
-  border-radius:14px;
-  background:linear-gradient(135deg,#1f2040,#2d2f5a);
-  color:#fff;
+  border-radius:16px;
+  background:linear-gradient(135deg,#ff6fae,#ff9ac8);
+  color:#000;
+  box-shadow:0 0 14px #ff9ac866;
 }
 </style>
 </head>
@@ -81,11 +100,13 @@ header{
 
 <header>ONLYOU — Menu du Soir</header>
 
-<div id="screens">
-  <div class="screen"><iframe></iframe></div>
-  <div class="screen"><iframe></iframe></div>
-  <div class="screen"><iframe></iframe></div>
-  <div class="screen"><iframe></iframe></div>
+<div id="frame-global">
+  <div id="screens">
+    <div class="screen"><iframe></iframe></div>
+    <div class="screen"><iframe></iframe></div>
+    <div class="screen"><iframe></iframe></div>
+    <div class="screen"><iframe></iframe></div>
+  </div>
 </div>
 
 <div class="menu">
