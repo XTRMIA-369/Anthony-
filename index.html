@@ -2,63 +2,72 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>ONLYOU – Menu du Soir</title>
 
 <style>
-*{box-sizing:border-box;font-family:system-ui}
-body{
+*{
+  box-sizing:border-box;
   margin:0;
+  padding:0;
+}
+
+html,body{
+  width:100%;
+  overflow-x:hidden; /* 🔒 BLOQUE LE SCROLL HORIZONTAL */
   background:#0b0b12;
   color:#fff;
+  font-family:system-ui,-apple-system;
 }
 
 /* HEADER */
 header{
-  padding:12px;
+  padding:14px;
   text-align:center;
   font-size:1.2rem;
   background:#0f1025;
 }
 
-/* ZONE ÉCRANS */
+/* ZONE VIDÉOS */
 #screens{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:6px;
-  padding:6px;
+  grid-template-columns:1fr 1fr; /* PAS DE vw */
+  gap:8px;
+  padding:8px;
+  width:100%;
 }
 
 /* CARRÉ STRICT */
 .screen{
   position:relative;
   width:100%;
-  aspect-ratio:1/1; /* 🔥 CARRÉ PARFAIT */
+  aspect-ratio:1/1;
   background:#000;
   border-radius:14px;
   overflow:hidden;
 }
 
-/* IFRAME ADAPTÉ AU CARRÉ */
+/* IFRAME VERROUILLÉ */
 .screen iframe{
   position:absolute;
-  inset:0;
+  top:0;left:0;
   width:100%;
   height:100%;
-  border:none;
+  border:0;
+  max-width:100%;
 }
 
 /* MENU EMOJI */
 .menu{
-  padding:10px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:8px;
+  gap:10px;
+  padding:10px;
   background:#12142b;
 }
 
-button{
-  padding:14px 0;
+.menu button{
+  padding:16px 0;
   font-size:1.6rem;
   border:none;
   border-radius:14px;
@@ -80,21 +89,10 @@ button{
 </div>
 
 <div class="menu">
-  <button onclick="openVid('https://xhamster.com/videos/girlsrimming-curiosity-of-the-youth-xhQxxhoY')">
-    👅🍑
-  </button>
-
-  <button onclick="openVid('https://xhamster.com/videos/girlsrimming-rimjobs-over-protein-shakes-xhECXYa')">
-    👅💦
-  </button>
-
-  <button onclick="openVid('https://xhamster.com/videos/summer-anal-sex-fun-in-the-village-with-stepbrother-xhwKRAN')">
-    🍑🔥
-  </button>
-
-  <button onclick="openVid('https://xhamster.com/videos/lucky-mature-guy-gets-to-fuck-these-innocent-hotties-in-his-house-xhbytBL')">
-    ⭐🏠
-  </button>
+  <button onclick="openVid('https://xhamster.com/videos/girlsrimming-curiosity-of-the-youth-xhQxxhoY')">👅🍑</button>
+  <button onclick="openVid('https://xhamster.com/videos/girlsrimming-rimjobs-over-protein-shakes-xhECXYa')">👅💦</button>
+  <button onclick="openVid('https://xhamster.com/videos/summer-anal-sex-fun-in-the-village-with-stepbrother-xhwKRAN')">🍑🔥</button>
+  <button onclick="openVid('https://xhamster.com/videos/lucky-mature-guy-gets-to-fuck-these-innocent-hotties-in-his-house-xhbytBL')">⭐🏠</button>
 </div>
 
 <script>
