@@ -1,140 +1,144 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ONLYYOU — NovaX Room</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ONLYYOU — Room</title>
 
 <style>
-html,body{
-  margin:0;
-  padding:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:black;
-  font-family:system-ui, sans-serif;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* ===== ROOM BACKGROUND ===== */
-#room{
-  position:fixed;
-  inset:0;
-  background:url("room1.jpg") center center / cover no-repeat;
+/* ROOM */
+.room {
+  position: fixed;
+  inset: 0;
+  background: url("room1.jpg") center / cover no-repeat;
 }
 
-/* ===== TV ZONE ===== */
-#tv{
-  position:absolute;
-  width:62%;
-  height:38%;
-  top:26%;
-  left:19%;
-  background:black;
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:0 0 40px rgba(0,0,0,0.8);
+/* TV */
+.tv {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 78%;
+  aspect-ratio: 16/9;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow:
+    0 0 60px rgba(255,255,255,0.08),
+    inset 0 0 30px rgba(255,255,255,0.12);
+  backdrop-filter: blur(2px);
 }
 
-/* ===== TV CONTENT ===== */
-#tv img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+/* TV CONTENT */
+.tv img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* ===== EMOJI BAR ===== */
-#emojis{
-  position:absolute;
-  bottom:12%;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  gap:16px;
-  font-size:26px;
-  z-index:5;
+/* LIVE */
+.live {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 14px;
+  opacity: 0.9;
 }
-#emojis span{
-  filter:drop-shadow(0 0 10px rgba(0,0,0,.8));
+.live::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: red;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
 }
-
-/* ===== NALA DIALOGUE ===== */
-#nalaText{
-  position:absolute;
-  bottom:4%;
-  width:100%;
-  text-align:center;
-  color:white;
-  font-size:20px;
-  text-shadow:0 0 12px black;
-  z-index:6;
-}
-
-/* ===== LIVE DOT ===== */
-#live{
-  position:absolute;
-  top:10px;
-  left:10px;
-  color:red;
-  font-size:14px;
+@keyframes pulse {
+  0% {opacity: .4;}
+  50% {opacity: 1;}
+  100% {opacity: .4;}
 }
 
-/* ===== NEXT ===== */
-#next{
-  position:absolute;
-  top:10px;
-  right:14px;
-  font-size:24px;
-  color:white;
-  text-shadow:0 0 10px black;
+/* FAST */
+.fast {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  opacity: 0.8;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width:768px){
-  #tv{
-    width:90%;
-    height:34%;
-    left:5%;
-    top:30%;
-  }
-  #nalaText{
-    font-size:18px;
-  }
+/* EMOJI BAR */
+.emoji-bar {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 22px;
 }
+
+.emoji {
+  font-size: 30px;
+  opacity: 0.55;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+.emoji:hover {
+  opacity: 1;
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 12px rgba(255,255,255,.6));
+}
+
+/* TEXT */
+.whisper {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,.85);
+  font-size: 20px;
+  letter-spacing: .04em;
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="room">
+<div class="room">
 
-  <div id="tv">
-    <div id="live">🔴 LIVE</div>
-    <div id="next">⏭️</div>
+  <div class="tv">
+    <div class="live">LIVE</div>
+    <div class="fast">⏩</div>
 
-    <img src="nala.jpg" id="girl">
+    <img src="nala.jpg" alt="Nala"/>
 
-    <div id="emojis">
-      <span>👄</span>
-      <span>👅</span>
-      <span>🍑</span>
-      <span>🍆</span>
-      <span>💦</span>
+    <div class="whisper">Installe-toi.</div>
+
+    <div class="emoji-bar">
+      <div class="emoji">👄</div>
+      <div class="emoji">👅</div>
+      <div class="emoji">🍑</div>
+      <div class="emoji">🍆</div>
+      <div class="emoji">💦</div>
     </div>
-
-    <div id="nalaText">Installe-toi.</div>
   </div>
 
 </div>
-
-<script>
-const girls=["nala.jpg","nala.jpg"]; // tu ajouteras d'autres meufs ici
-let i=0;
-document.getElementById("next").onclick=()=>{
-  i=(i+1)%girls.length;
-  document.getElementById("girl").src=girls[i];
-}
-</script>
 
 </body>
 </html>
