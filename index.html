@@ -9,120 +9,92 @@
 *{box-sizing:border-box;font-family:system-ui}
 body{
   margin:0;
-  background:#0b0b0f;
+  background:#0b0b12;
   color:#fff;
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;
 }
 
 header{
-  padding:16px;
+  padding:14px;
   text-align:center;
-  font-size:1.4rem;
-  background:#0f1020;
+  font-size:1.3rem;
+  background:#0f1025;
 }
 
-#player{
-  flex:1;
-  background:#000;
-  position:relative;
+#screens{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  grid-template-rows:repeat(2,1fr);
+  gap:6px;
+  height:60vh;
+  padding:6px;
 }
 
 iframe{
   width:100%;
   height:100%;
   border:none;
-}
-
-#fallback{
-  position:absolute;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  background:rgba(0,0,0,0.85);
-}
-
-#fallback a{
-  margin-top:12px;
-  padding:14px 20px;
-  background:#ff3b6a;
-  color:#fff;
+  background:#000;
   border-radius:12px;
-  text-decoration:none;
 }
 
 .menu{
-  padding:16px;
-  background:#121326;
+  padding:12px;
+  background:#12142b;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
 button{
-  width:100%;
-  padding:14px;
-  margin-bottom:10px;
-  border-radius:14px;
+  padding:16px;
+  font-size:1.4rem;
   border:none;
-  background:linear-gradient(135deg,#1f1f35,#2e2e4d);
+  border-radius:14px;
+  background:linear-gradient(135deg,#1f2040,#2d2f5a);
   color:#fff;
-  font-size:1rem;
 }
 </style>
 </head>
 
 <body>
 
-<header>ONLYOU – Menu du Soir</header>
+<header>ONLYOU — Menu du Soir</header>
 
-<div id="player">
-  <iframe id="frame"></iframe>
-
-  <div id="fallback">
-    <div>⚠️ Lecture intégrée bloquée</div>
-    <a id="openExternal" target="_blank">Ouvrir la vidéo</a>
-  </div>
+<div id="screens">
+  <iframe></iframe>
+  <iframe></iframe>
+  <iframe></iframe>
+  <iframe></iframe>
 </div>
 
 <div class="menu">
-  <button onclick="play(
-    'https://xhamster.com/videos/girlsrimming-curiosity-of-the-youth-xhQxxhoY'
-  )">18+ – Curiosity & Youth</button>
+  <button onclick="openVid('https://xhamster.com/videos/girlsrimming-curiosity-of-the-youth-xhQxxhoY')">
+    👅🍑
+  </button>
 
-  <button onclick="play(
-    'https://xhamster.com/videos/girlsrimming-rimjobs-over-protein-shakes-xhECXYa'
-  )">She Lick Your Ass – Rimjobs Over Protein</button>
+  <button onclick="openVid('https://xhamster.com/videos/girlsrimming-rimjobs-over-protein-shakes-xhECXYa')">
+    👅💦
+  </button>
 
-  <button onclick="play(
-    'https://xhamster.com/videos/summer-anal-sex-fun-in-the-village-with-stepbrother-xhwKRAN'
-  )">Anal Sex – Summer Village Fun</button>
+  <button onclick="openVid('https://xhamster.com/videos/summer-anal-sex-fun-in-the-village-with-stepbrother-xhwKRAN')">
+    🍑🔥
+  </button>
 
-  <button onclick="play(
-    'https://xhamster.com/videos/lucky-mature-guy-gets-to-fuck-these-innocent-hotties-in-his-house-xhbytBL'
-  )">Mature – Lucky Guy & Innocent Hotties</button>
+  <button onclick="openVid('https://xhamster.com/videos/lucky-mature-guy-gets-to-fuck-these-innocent-hotties-in-his-house-xhbytBL')">
+    ⭐🏠
+  </button>
 </div>
 
 <script>
-function play(url){
-  const frame = document.getElementById('frame');
-  const fallback = document.getElementById('fallback');
-  const ext = document.getElementById('openExternal');
+let index = 0;
+const frames = document.querySelectorAll("iframe");
 
-  fallback.style.display = 'none';
-  frame.src = url;
-  ext.href = url;
-
-  // Si l’iframe est bloquée, on affiche le fallback
-  setTimeout(()=>{
-    try{
-      frame.contentWindow.location;
-    }catch(e){
-      fallback.style.display = 'flex';
-    }
-  },1200);
+function openVid(url){
+  frames[index].src = url;
+  index = (index + 1) % frames.length;
 }
 </script>
 
 </body>
 </html>
+  
