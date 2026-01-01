@@ -3,76 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>xX ONLYoU Xx — Living Experience</title>
+<title>xX ONLYoU Xx — QUAD</title>
 
 <style>
 :root{
-  --bg1:#3b0f23;
-  --bg2:#6a1c3c;
-  --pink:#ff6fae;
-  --pink-soft:#ff9fc9;
-  --ink:#ffffff;
-  --muted:rgba(255,255,255,.6);
+  --bg1:#3b0f23; --bg2:#6a1c3c;
+  --pink:#ff6fae; --ink:#fff; --muted:rgba(255,255,255,.6);
 }
-
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
 
 body{
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
   color:var(--ink);
   background:
     radial-gradient(1200px 800px at 50% 20%, #7a2a4a, transparent 60%),
     linear-gradient(160deg,var(--bg1),var(--bg2));
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 .header{
   text-align:center;
-  padding-top:env(safe-area-inset-top);
-  padding-bottom:18px;
+  padding: env(safe-area-inset-top) 12px 10px;
 }
-
-.header .topline{
-  font-size:11px;
-  letter-spacing:.35em;
-  opacity:.7;
+.header .top{
+  font-size:11px; letter-spacing:.35em; opacity:.7;
 }
-
 .header h1{
   margin-top:10px;
-  font-size:clamp(32px,9vw,44px);
+  font-size:clamp(30px,8vw,44px);
   letter-spacing:.32em;
   font-weight:700;
 }
-
 .header .mode{
-  margin-top:10px;
+  margin-top:8px;
   font-size:13px;
   letter-spacing:.25em;
   color:var(--muted);
 }
 
-/* ===== SCENE ===== */
+/* SCENE */
 .scene{
-  height:68vh;
+  height:70vh;
   display:flex;
   align-items:center;
   justify-content:center;
   position:relative;
 }
-
-/* ===== GRID ===== */
 .grid{
   display:grid;
-  grid-template-columns:repeat(2, 1fr);
+  grid-template-columns:repeat(2,1fr);
   gap:26px;
 }
 
-/* ===== CARD ===== */
+/* CUBES */
 .card{
-  width:220px;
-  height:220px;
+  width:210px;
+  height:210px;
   border-radius:28px;
   background:rgba(0,0,0,.45);
   box-shadow:
@@ -82,68 +69,46 @@ body{
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  transition:transform .4s ease, box-shadow .4s ease, opacity .4s ease;
+  transition:.35s;
 }
-
 .card:hover{
-  transform:scale(1.05);
+  transform:scale(1.06);
   box-shadow:
     0 0 70px rgba(255,110,170,.6),
     inset 0 0 0 1px rgba(255,180,220,.45);
 }
-
 .lips{
-  font-size:78px;
-  filter:drop-shadow(0 0 18px rgba(255,120,180,.8));
+  font-size:76px;
+  filter: drop-shadow(0 0 18px rgba(255,120,180,.8));
 }
 
-/* ===== OVERLAY EXPERIENCE ===== */
-.overlay{
-  position:fixed;
-  inset:0;
+/* QUAD BUTTON */
+.quad{
+  position:absolute;
+  width:120px;
+  height:120px;
+  border-radius:50%;
   background:
-    radial-gradient(800px 600px at 50% 30%, rgba(255,120,170,.35), transparent 60%),
-    linear-gradient(180deg,#1a020c,#3a0a1f);
+    radial-gradient(circle at 30% 30%, #ffd1e6, #ff6fae);
+  box-shadow:0 0 60px rgba(255,120,180,.9);
   display:flex;
   align-items:center;
   justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .6s ease;
-  z-index:10;
+  font-size:22px;
+  letter-spacing:.18em;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+.quad:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 90px rgba(255,120,180,1);
 }
 
-.overlay.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.nala{
-  width:72vw;
-  max-width:420px;
-  border-radius:28px;
-  box-shadow:0 0 80px rgba(255,120,170,.6);
-  animation:fadeInUp .8s ease forwards;
-}
-
-.overlay .label{
-  position:absolute;
-  bottom:env(safe-area-inset-bottom, 24px);
-  text-align:center;
-  font-size:12px;
-  letter-spacing:.22em;
-  color:var(--muted);
-}
-
-@keyframes fadeInUp{
-  from{opacity:0; transform:translateY(20px) scale(.96)}
-  to{opacity:1; transform:translateY(0) scale(1)}
-}
-
-/* ===== FOOTER ===== */
+/* FOOTER */
 .footer{
   position:absolute;
-  bottom:env(safe-area-inset-bottom);
+  bottom: env(safe-area-inset-bottom);
   width:100%;
   text-align:center;
   font-size:11px;
@@ -156,42 +121,53 @@ body{
 <body>
 
 <div class="header">
-  <div class="topline">THE ST⭐R IS</div>
+  <div class="top">THE ST⭐R IS</div>
   <h1>xX ONLYoU Xx</h1>
   <div class="mode">SURCHARGE · QUAD</div>
 </div>
 
 <div class="scene">
-  <div class="grid" id="grid">
-    <div class="card"><div class="lips">🫦</div></div>
-    <div class="card"><div class="lips">🫦</div></div>
-    <div class="card"><div class="lips">🫦</div></div>
-    <div class="card"><div class="lips">🫦</div></div>
+  <div class="grid">
+    <div class="card" data-url="https://es.xhamster.com/videos/rim4k-rimming-to-make-her-happy-the-best-ass-licking-rimjob-compilation-xhbbJW2">
+      <div class="lips">🫦</div>
+    </div>
+    <div class="card" data-url="https://es.xhamster.com/videos/wicked-threesome-rimjob-with-hot-lulu-love-and-sharon-white-xhkHR3d">
+      <div class="lips">🫦</div>
+    </div>
+    <div class="card" data-url="https://es.xhamster.com/videos/hottest-prostate-milking-7298976">
+      <div class="lips">🫦</div>
+    </div>
+    <div class="card" data-url="https://es.xhamster.com/videos/hottest-sex-3978095">
+      <div class="lips">🫦</div>
+    </div>
   </div>
+
+  <!-- BOUTON QUAD -->
+  <div class="quad" id="quadBtn">QUAD</div>
 </div>
 
-<div class="footer">
-  Swipe ← → changer mode · Tap pour présence
-</div>
-
-<!-- ===== EXPERIENCE OVERLAY ===== -->
-<div class="overlay" id="overlay">
-  <img src="2025-06-26T01.21.08_1.jpg" class="nala" alt="Nala">
-  <div class="label">Présence active · OnlyoU</div>
-</div>
+<div class="footer">Tap centre = ouvrir les 4 · Tap cube = solo</div>
 
 <script>
-const cards = document.querySelectorAll('.card');
-const overlay = document.getElementById('overlay');
+const urls = [
+  "https://es.xhamster.com/videos/rim4k-rimming-to-make-her-happy-the-best-ass-licking-rimjob-compilation-xhbbJW2",
+  "https://es.xhamster.com/videos/wicked-threesome-rimjob-with-hot-lulu-love-and-sharon-white-xhkHR3d",
+  "https://es.xhamster.com/videos/hottest-prostate-milking-7298976",
+  "https://es.xhamster.com/videos/hottest-sex-3978095"
+];
 
-cards.forEach(card=>{
-  card.addEventListener('click',()=>{
-    overlay.classList.add('active');
+// SOLO
+document.querySelectorAll('.card').forEach(c=>{
+  c.addEventListener('click',()=>{
+    window.open(c.dataset.url,'_blank','noopener');
   });
 });
 
-overlay.addEventListener('click',()=>{
-  overlay.classList.remove('active');
+// QUAD
+document.getElementById('quadBtn').addEventListener('click',()=>{
+  urls.forEach((u,i)=>{
+    setTimeout(()=>window.open(u,'_blank','noopener'), i*120);
+  });
 });
 </script>
 
