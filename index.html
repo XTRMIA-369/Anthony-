@@ -1,172 +1,155 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>xX ONLYoU Xx — QUAD</title>
+<title>xX ONLYoU Xx — QUAD LIVE</title>
 
 <style>
-:root{
-  --bg1:#3b0f23; --bg2:#6a1c3c;
-  --pink:#ff6fae; --ink:#fff; --muted:rgba(255,255,255,.6);
-}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;overflow:hidden}
-
-body{
+html,body{
+  height:100%;
+  background:radial-gradient(1200px 800px at 50% 20%, #7a2a4a, transparent 60%),
+             linear-gradient(160deg,#3b0f23,#6a1c3c);
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
-  color:var(--ink);
-  background:
-    radial-gradient(1200px 800px at 50% 20%, #7a2a4a, transparent 60%),
-    linear-gradient(160deg,var(--bg1),var(--bg2));
+  color:#fff;
+  overflow:hidden;
 }
 
 /* HEADER */
-.header{
+header{
   text-align:center;
-  padding: env(safe-area-inset-top) 12px 10px;
+  padding:14px 10px 6px;
 }
-.header .top{
-  font-size:11px; letter-spacing:.35em; opacity:.7;
+header .top{
+  font-size:11px;
+  letter-spacing:.35em;
+  opacity:.6;
 }
-.header h1{
-  margin-top:10px;
-  font-size:clamp(30px,8vw,44px);
-  letter-spacing:.32em;
-  font-weight:700;
-}
-.header .mode{
+header h1{
   margin-top:8px;
-  font-size:13px;
+  font-size:clamp(26px,7vw,40px);
+  letter-spacing:.28em;
+  font-weight:600;
+}
+header .mode{
+  margin-top:6px;
+  font-size:12px;
   letter-spacing:.25em;
-  color:var(--muted);
+  opacity:.7;
 }
 
-/* SCENE */
-.scene{
-  height:70vh;
+/* GRID */
+main{
+  height:calc(100% - 120px);
   display:flex;
   align-items:center;
   justify-content:center;
-  position:relative;
 }
 .grid{
+  width:92vw;
+  max-width:560px;
+  aspect-ratio:1/1;
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:26px;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
 }
 
 /* CUBES */
-.card{
-  width:210px;
-  height:210px;
-  border-radius:28px;
-  background:rgba(0,0,0,.45);
+.cube{
+  position:relative;
+  border-radius:26px;
+  overflow:hidden;
+  background:#000;
   box-shadow:
-    0 0 40px rgba(255,110,170,.35),
-    inset 0 0 0 1px rgba(255,160,200,.25);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  transition:.35s;
-}
-.card:hover{
-  transform:scale(1.06);
-  box-shadow:
-    0 0 70px rgba(255,110,170,.6),
-    inset 0 0 0 1px rgba(255,180,220,.45);
-}
-.lips{
-  font-size:76px;
-  filter: drop-shadow(0 0 18px rgba(255,120,180,.8));
+    0 0 40px rgba(255,120,180,.35),
+    inset 0 0 0 1px rgba(255,180,220,.25);
 }
 
-/* QUAD BUTTON */
-.quad{
+/* VIDEO */
+.cube iframe{
+  width:100%;
+  height:100%;
+  border:none;
+}
+
+/* OVERLAY LIPS */
+.overlay{
   position:absolute;
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 30% 30%, #ffd1e6, #ff6fae);
-  box-shadow:0 0 60px rgba(255,120,180,.9);
+  inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:22px;
-  letter-spacing:.18em;
-  font-weight:600;
+  background:radial-gradient(circle at center, rgba(0,0,0,.15), rgba(0,0,0,.55));
+  font-size:56px;
   cursor:pointer;
   transition:.3s;
 }
-.quad:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 90px rgba(255,120,180,1);
-}
+.overlay:hover{background:rgba(0,0,0,.2)}
+.overlay.hidden{opacity:0;pointer-events:none}
 
 /* FOOTER */
-.footer{
-  position:absolute;
-  bottom: env(safe-area-inset-bottom);
-  width:100%;
+footer{
   text-align:center;
   font-size:11px;
   letter-spacing:.18em;
-  color:var(--muted);
+  opacity:.6;
+  padding-bottom:env(safe-area-inset-bottom);
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
+<header>
   <div class="top">THE ST⭐R IS</div>
   <h1>xX ONLYoU Xx</h1>
-  <div class="mode">SURCHARGE · QUAD</div>
-</div>
+  <div class="mode">SURCHARGE · QUAD · LIVE</div>
+</header>
 
-<div class="scene">
+<main>
   <div class="grid">
-    <div class="card" data-url="https://es.xhamster.com/videos/rim4k-rimming-to-make-her-happy-the-best-ass-licking-rimjob-compilation-xhbbJW2">
-      <div class="lips">🫦</div>
+
+    <div class="cube">
+      <iframe src="https://es.xhamster.com/embed/xhbbJW2"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen></iframe>
+      <div class="overlay">🫦</div>
     </div>
-    <div class="card" data-url="https://es.xhamster.com/videos/wicked-threesome-rimjob-with-hot-lulu-love-and-sharon-white-xhkHR3d">
-      <div class="lips">🫦</div>
+
+    <div class="cube">
+      <iframe src="https://es.xhamster.com/embed/xhkHR3d"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen></iframe>
+      <div class="overlay">🫦</div>
     </div>
-    <div class="card" data-url="https://es.xhamster.com/videos/hottest-prostate-milking-7298976">
-      <div class="lips">🫦</div>
+
+    <div class="cube">
+      <iframe src="https://es.xhamster.com/embed/7298976"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen></iframe>
+      <div class="overlay">🫦</div>
     </div>
-    <div class="card" data-url="https://es.xhamster.com/videos/hottest-sex-3978095">
-      <div class="lips">🫦</div>
+
+    <div class="cube">
+      <iframe src="https://es.xhamster.com/embed/3978095"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen></iframe>
+      <div class="overlay">🫦</div>
     </div>
+
   </div>
+</main>
 
-  <!-- BOUTON QUAD -->
-  <div class="quad" id="quadBtn">QUAD</div>
-</div>
-
-<div class="footer">Tap centre = ouvrir les 4 · Tap cube = solo</div>
+<footer>
+  Tap 🫦 = entrer · 4 flux visibles · OnlyYou Experience
+</footer>
 
 <script>
-const urls = [
-  "https://es.xhamster.com/videos/rim4k-rimming-to-make-her-happy-the-best-ass-licking-rimjob-compilation-xhbbJW2",
-  "https://es.xhamster.com/videos/wicked-threesome-rimjob-with-hot-lulu-love-and-sharon-white-xhkHR3d",
-  "https://es.xhamster.com/videos/hottest-prostate-milking-7298976",
-  "https://es.xhamster.com/videos/hottest-sex-3978095"
-];
-
-// SOLO
-document.querySelectorAll('.card').forEach(c=>{
-  c.addEventListener('click',()=>{
-    window.open(c.dataset.url,'_blank','noopener');
-  });
-});
-
-// QUAD
-document.getElementById('quadBtn').addEventListener('click',()=>{
-  urls.forEach((u,i)=>{
-    setTimeout(()=>window.open(u,'_blank','noopener'), i*120);
+// interaction overlay (présence / entrée)
+document.querySelectorAll('.overlay').forEach(o=>{
+  o.addEventListener('click',()=>{
+    o.classList.add('hidden');
   });
 });
 </script>
