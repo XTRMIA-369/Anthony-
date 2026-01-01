@@ -1,130 +1,209 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>ONLYOU — Menu du Soir</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>xX ONLYoU Xx — Living Experience</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+:root{
+  --bg1:#2a0718;
+  --bg2:#5a1734;
+  --rose:#ff6fae;
+  --rose-soft:#f3a7c7;
+  --ink:#ffffff;
+  --muted:#e8c7d6;
 }
 
-html,body{
-  width:100%;
-  overflow-x:hidden;
-  background:#0b0b12;
-  color:#fff;
-  font-family:system-ui,-apple-system;
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+
+/* BACKGROUND */
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(900px 700px at 50% 30%, rgba(255,110,170,.35), transparent 60%),
+    linear-gradient(160deg,var(--bg1),var(--bg2));
 }
 
 /* HEADER */
-header{
-  padding:14px;
+.header{
+  padding-top:calc(env(safe-area-inset-top) + 18px);
   text-align:center;
-  font-size:1.1rem;
-  background:#0f1025;
+}
+.sup{
+  font-size:12px;
+  letter-spacing:.45em;
+  color:var(--rose-soft);
+}
+h1{
+  margin-top:10px;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,9vw,56px);
+  letter-spacing:.22em;
+  text-shadow:0 0 40px rgba(255,120,170,.55);
+}
+h1 span{color:var(--rose)}
+.sub{
+  margin-top:8px;
+  font-size:12px;
+  letter-spacing:.32em;
+  color:var(--muted);
 }
 
-/* 🌸 CADRE GLOBAL */
-#frame-global{
-  margin:12px;
-  padding:10px;
-  border-radius:24px;
-  background:linear-gradient(135deg,#ff6fae33,#ff9ac833,#ff6fae33);
-  box-shadow:
-    0 0 25px #ff6fae55,
-    inset 0 0 25px #ff9ac822;
-  animation:warmGlow 6s ease-in-out infinite;
+/* SCENE */
+.scene{
+  height:64vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-@keyframes warmGlow{
-  0%{box-shadow:0 0 18px #ff6fae44,inset 0 0 18px #ff9ac822;}
-  50%{box-shadow:0 0 32px #ff9ac888,inset 0 0 26px #ff6fae44;}
-  100%{box-shadow:0 0 18px #ff6fae44,inset 0 0 18px #ff9ac822;}
-}
-
-/* ZONE VIDÉOS */
-#screens{
+/* GRID */
+.grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:22px;
 }
+.grid.solo{grid-template-columns:1fr}
+.grid.duo{grid-template-columns:1fr 1fr}
+.grid.quad{grid-template-columns:1fr 1fr}
 
-/* 🔳 CADRE INDIVIDUEL */
-.screen{
+/* CARD */
+.card{
+  width:190px;
+  height:190px;
+  border-radius:32px;
+  background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.9));
+  border:1px solid rgba(255,130,180,.35);
+  box-shadow:
+    0 0 40px rgba(255,120,170,.55),
+    inset 0 0 30px rgba(255,120,170,.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
   position:relative;
-  width:100%;
-  aspect-ratio:1/1;
-  border-radius:18px;
-  overflow:hidden;
-  background:#000;
-  border:2px solid #ff7fbf55;
-  box-shadow:
-    0 0 12px #ff7fbf44,
-    inset 0 0 12px #ffb3d955;
 }
 
-/* IFRAME */
-.screen iframe{
+/* AURA */
+.card::before{
+  content:'';
   position:absolute;
-  inset:0;
+  inset:-18px;
+  border-radius:44px;
+  background:radial-gradient(circle, rgba(255,120,170,.45), transparent 70%);
+  filter:blur(26px);
+  animation:aura 5.5s ease-in-out infinite;
+}
+@keyframes aura{50%{opacity:.65}}
+
+/* MOUTH CORE */
+.mouth{
+  font-size:64px;
+  line-height:1;
+  filter:
+    drop-shadow(0 0 22px rgba(255,120,170,.9))
+    drop-shadow(0 0 40px rgba(255,120,170,.6));
+  animation:mouthPulse 4.2s ease-in-out infinite;
+}
+@keyframes mouthPulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+  100%{transform:scale(1)}
+}
+
+/* HELP */
+.help{
+  text-align:center;
+  font-size:12px;
+  letter-spacing:.26em;
+  color:var(--muted);
+  margin-top:10px;
+}
+
+/* FOOTER */
+.footer{
+  position:absolute;
+  bottom:calc(env(safe-area-inset-bottom) + 10px);
   width:100%;
-  height:100%;
-  border:0;
-}
-
-/* MENU EMOJI */
-.menu{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  padding:12px;
-}
-
-.menu button{
-  padding:16px 0;
-  font-size:1.6rem;
-  border:none;
-  border-radius:16px;
-  background:linear-gradient(135deg,#ff6fae,#ff9ac8);
-  color:#000;
-  box-shadow:0 0 14px #ff9ac866;
+  text-align:center;
+  font-size:12px;
+  letter-spacing:.22em;
+  color:var(--muted);
 }
 </style>
 </head>
 
 <body>
 
-<header>ONLYOU — Menu du Soir</header>
-
-<div id="frame-global">
-  <div id="screens">
-    <div class="screen"><iframe></iframe></div>
-    <div class="screen"><iframe></iframe></div>
-    <div class="screen"><iframe></iframe></div>
-    <div class="screen"><iframe></iframe></div>
-  </div>
+<div class="header">
+  <div class="sup">THE ST⭐R IS</div>
+  <h1>xX&nbsp;ONLY<span>oU</span>&nbsp;Xx</h1>
+  <div class="sub" id="modeLabel">SURCHARGE · QUAD</div>
 </div>
 
-<div class="menu">
-  <button onclick="openVid('https://xhamster.com/videos/girlsrimming-curiosity-of-the-youth-xhQxxhoY')">👅🍑</button>
-  <button onclick="openVid('https://xhamster.com/videos/girlsrimming-rimjobs-over-protein-shakes-xhECXYa')">👅💦</button>
-  <button onclick="openVid('https://xhamster.com/videos/summer-anal-sex-fun-in-the-village-with-stepbrother-xhwKRAN')">🍑🔥</button>
-  <button onclick="openVid('https://xhamster.com/videos/lucky-mature-guy-gets-to-fuck-these-innocent-hotties-in-his-house-xhbytBL')">⭐🏠</button>
+<div class="scene">
+  <div class="grid quad" id="grid"></div>
 </div>
+
+<div class="help">Swipe ← → changer mode · Tap pour présence</div>
+
+<div class="footer" id="time"></div>
 
 <script>
-let slot = 0;
-const frames = document.querySelectorAll(".screen iframe");
+const grid=document.getElementById('grid');
+const label=document.getElementById('modeLabel');
+const time=document.getElementById('time');
 
-function openVid(url){
-  frames[slot].src = url;
-  slot = (slot + 1) % frames.length;
+let mode=2;
+const modes=[
+ {cls:'solo',txt:'FOCUS · SOLO',n:1},
+ {cls:'duo',txt:'SYNCHRONISATION · DUO',n:2},
+ {cls:'quad',txt:'SURCHARGE · QUAD',n:4}
+];
+
+function render(){
+ const m=modes[mode];
+ grid.className='grid '+m.cls;
+ grid.innerHTML='';
+ for(let i=0;i<m.n;i++){
+  grid.innerHTML+=`
+   <div class="card">
+     <div class="mouth">🫦</div>
+   </div>`;
+ }
+ label.textContent=m.txt;
 }
+
+function tick(){
+ const d=new Date();
+ time.textContent=
+  d.toLocaleTimeString('fr-FR',{hour12:false})+
+  ' · '+d.toLocaleDateString('fr-FR')+
+  ' · ONLYoU';
+}
+
+let sx=0,sy=0;
+document.addEventListener('touchstart',e=>{
+ sx=e.touches[0].clientX;
+ sy=e.touches[0].clientY;
+});
+document.addEventListener('touchend',e=>{
+ const dx=e.changedTouches[0].clientX-sx;
+ const dy=e.changedTouches[0].clientY-sy;
+ if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){
+  mode=(mode+(dx<0?1:-1)+modes.length)%modes.length;
+  render();
+ }
+});
+
+render();
+tick();
+setInterval(tick,1000);
 </script>
 
 </body>
-</html>
+  </html>
