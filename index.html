@@ -1,137 +1,153 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>xX ONLYoU Xx — Living Experience</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg1:#2a0718;
-  --bg2:#5a1734;
-  --rose:#ff6fae;
-  --rose-soft:#f3a7c7;
+  --bg1:#3b0f23;
+  --bg2:#6a1c3c;
+  --pink:#ff6fae;
+  --pink-soft:#ff9fc9;
   --ink:#ffffff;
-  --muted:#e8c7d6;
+  --muted:rgba(255,255,255,.6);
 }
 
-/* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
 
-/* BACKGROUND */
 body{
-  font-family:'Inter',system-ui,sans-serif;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto;
   color:var(--ink);
   background:
-    radial-gradient(900px 700px at 50% 30%, rgba(255,110,170,.35), transparent 60%),
+    radial-gradient(1200px 800px at 50% 20%, #7a2a4a, transparent 60%),
     linear-gradient(160deg,var(--bg1),var(--bg2));
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 .header{
-  padding-top:calc(env(safe-area-inset-top) + 18px);
   text-align:center;
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:18px;
 }
-.sup{
-  font-size:12px;
-  letter-spacing:.45em;
-  color:var(--rose-soft);
+
+.header .topline{
+  font-size:11px;
+  letter-spacing:.35em;
+  opacity:.7;
 }
-h1{
+
+.header h1{
   margin-top:10px;
-  font-family:'Playfair Display',serif;
-  font-size:clamp(36px,9vw,56px);
-  letter-spacing:.22em;
-  text-shadow:0 0 40px rgba(255,120,170,.55);
-}
-h1 span{color:var(--rose)}
-.sub{
-  margin-top:8px;
-  font-size:12px;
+  font-size:clamp(32px,9vw,44px);
   letter-spacing:.32em;
+  font-weight:700;
+}
+
+.header .mode{
+  margin-top:10px;
+  font-size:13px;
+  letter-spacing:.25em;
   color:var(--muted);
 }
 
-/* SCENE */
+/* ===== SCENE ===== */
 .scene{
-  height:64vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  gap:22px;
-}
-.grid.solo{grid-template-columns:1fr}
-.grid.duo{grid-template-columns:1fr 1fr}
-.grid.quad{grid-template-columns:1fr 1fr}
-
-/* CARD */
-.card{
-  width:190px;
-  height:190px;
-  border-radius:32px;
-  background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.9));
-  border:1px solid rgba(255,130,180,.35);
-  box-shadow:
-    0 0 40px rgba(255,120,170,.55),
-    inset 0 0 30px rgba(255,120,170,.25);
+  height:68vh;
   display:flex;
   align-items:center;
   justify-content:center;
   position:relative;
 }
 
-/* AURA */
-.card::before{
-  content:'';
+/* ===== GRID ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:26px;
+}
+
+/* ===== CARD ===== */
+.card{
+  width:220px;
+  height:220px;
+  border-radius:28px;
+  background:rgba(0,0,0,.45);
+  box-shadow:
+    0 0 40px rgba(255,110,170,.35),
+    inset 0 0 0 1px rgba(255,160,200,.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:transform .4s ease, box-shadow .4s ease, opacity .4s ease;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:
+    0 0 70px rgba(255,110,170,.6),
+    inset 0 0 0 1px rgba(255,180,220,.45);
+}
+
+.lips{
+  font-size:78px;
+  filter:drop-shadow(0 0 18px rgba(255,120,180,.8));
+}
+
+/* ===== OVERLAY EXPERIENCE ===== */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(800px 600px at 50% 30%, rgba(255,120,170,.35), transparent 60%),
+    linear-gradient(180deg,#1a020c,#3a0a1f);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .6s ease;
+  z-index:10;
+}
+
+.overlay.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.nala{
+  width:72vw;
+  max-width:420px;
+  border-radius:28px;
+  box-shadow:0 0 80px rgba(255,120,170,.6);
+  animation:fadeInUp .8s ease forwards;
+}
+
+.overlay .label{
   position:absolute;
-  inset:-18px;
-  border-radius:44px;
-  background:radial-gradient(circle, rgba(255,120,170,.45), transparent 70%);
-  filter:blur(26px);
-  animation:aura 5.5s ease-in-out infinite;
-}
-@keyframes aura{50%{opacity:.65}}
-
-/* MOUTH CORE */
-.mouth{
-  font-size:64px;
-  line-height:1;
-  filter:
-    drop-shadow(0 0 22px rgba(255,120,170,.9))
-    drop-shadow(0 0 40px rgba(255,120,170,.6));
-  animation:mouthPulse 4.2s ease-in-out infinite;
-}
-@keyframes mouthPulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.15)}
-  100%{transform:scale(1)}
-}
-
-/* HELP */
-.help{
-  text-align:center;
-  font-size:12px;
-  letter-spacing:.26em;
-  color:var(--muted);
-  margin-top:10px;
-}
-
-/* FOOTER */
-.footer{
-  position:absolute;
-  bottom:calc(env(safe-area-inset-bottom) + 10px);
-  width:100%;
+  bottom:env(safe-area-inset-bottom, 24px);
   text-align:center;
   font-size:12px;
   letter-spacing:.22em;
+  color:var(--muted);
+}
+
+@keyframes fadeInUp{
+  from{opacity:0; transform:translateY(20px) scale(.96)}
+  to{opacity:1; transform:translateY(0) scale(1)}
+}
+
+/* ===== FOOTER ===== */
+.footer{
+  position:absolute;
+  bottom:env(safe-area-inset-bottom);
+  width:100%;
+  text-align:center;
+  font-size:11px;
+  letter-spacing:.18em;
   color:var(--muted);
 }
 </style>
@@ -140,70 +156,44 @@ h1 span{color:var(--rose)}
 <body>
 
 <div class="header">
-  <div class="sup">THE ST⭐R IS</div>
-  <h1>xX&nbsp;ONLY<span>oU</span>&nbsp;Xx</h1>
-  <div class="sub" id="modeLabel">SURCHARGE · QUAD</div>
+  <div class="topline">THE ST⭐R IS</div>
+  <h1>xX ONLYoU Xx</h1>
+  <div class="mode">SURCHARGE · QUAD</div>
 </div>
 
 <div class="scene">
-  <div class="grid quad" id="grid"></div>
+  <div class="grid" id="grid">
+    <div class="card"><div class="lips">🫦</div></div>
+    <div class="card"><div class="lips">🫦</div></div>
+    <div class="card"><div class="lips">🫦</div></div>
+    <div class="card"><div class="lips">🫦</div></div>
+  </div>
 </div>
 
-<div class="help">Swipe ← → changer mode · Tap pour présence</div>
+<div class="footer">
+  Swipe ← → changer mode · Tap pour présence
+</div>
 
-<div class="footer" id="time"></div>
+<!-- ===== EXPERIENCE OVERLAY ===== -->
+<div class="overlay" id="overlay">
+  <img src="2025-06-26T01.21.08_1.jpg" class="nala" alt="Nala">
+  <div class="label">Présence active · OnlyoU</div>
+</div>
 
 <script>
-const grid=document.getElementById('grid');
-const label=document.getElementById('modeLabel');
-const time=document.getElementById('time');
+const cards = document.querySelectorAll('.card');
+const overlay = document.getElementById('overlay');
 
-let mode=2;
-const modes=[
- {cls:'solo',txt:'FOCUS · SOLO',n:1},
- {cls:'duo',txt:'SYNCHRONISATION · DUO',n:2},
- {cls:'quad',txt:'SURCHARGE · QUAD',n:4}
-];
-
-function render(){
- const m=modes[mode];
- grid.className='grid '+m.cls;
- grid.innerHTML='';
- for(let i=0;i<m.n;i++){
-  grid.innerHTML+=`
-   <div class="card">
-     <div class="mouth">🫦</div>
-   </div>`;
- }
- label.textContent=m.txt;
-}
-
-function tick(){
- const d=new Date();
- time.textContent=
-  d.toLocaleTimeString('fr-FR',{hour12:false})+
-  ' · '+d.toLocaleDateString('fr-FR')+
-  ' · ONLYoU';
-}
-
-let sx=0,sy=0;
-document.addEventListener('touchstart',e=>{
- sx=e.touches[0].clientX;
- sy=e.touches[0].clientY;
-});
-document.addEventListener('touchend',e=>{
- const dx=e.changedTouches[0].clientX-sx;
- const dy=e.changedTouches[0].clientY-sy;
- if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){
-  mode=(mode+(dx<0?1:-1)+modes.length)%modes.length;
-  render();
- }
+cards.forEach(card=>{
+  card.addEventListener('click',()=>{
+    overlay.classList.add('active');
+  });
 });
 
-render();
-tick();
-setInterval(tick,1000);
+overlay.addEventListener('click',()=>{
+  overlay.classList.remove('active');
+});
 </script>
 
 </body>
-  </html>
+</html>
