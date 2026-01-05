@@ -56,7 +56,7 @@ h1 span{color:var(--rose)}
 
 /* SCENE */
 .scene{
-  height:65vh;
+  height:70vh;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -71,7 +71,7 @@ h1 span{color:var(--rose)}
   transition:all .6s ease;
   width:100%;
   height:100%;
-  padding:8vw 5vw 20vw 5vw; /* Espace bas pour Nala + speech */
+  padding:5vw;
 }
 .grid.solo{grid-template-columns:1fr}
 .grid.duo{grid-template-columns:1fr 1fr}
@@ -89,7 +89,7 @@ h1 span{color:var(--rose)}
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:6rem; /* Gros emoji initial */
+  font-size:6rem;
   color:var(--rose-soft);
 }
 .node iframe{
@@ -98,59 +98,41 @@ h1 span{color:var(--rose)}
   border:0;
 }
 
-/* NALA CUBE BAS CENTRE */
-.nala-container{
+/* SPEECH TEXT SOUS CUBES */
+.speech{
   position:absolute;
-  bottom:15vh;
+  bottom:18vh;
   left:50%;
   transform:translateX(-50%);
-  width:min(40vw,200px);
-  text-align:center;
-  z-index:10;
-}
-.nala-node{
-  aspect-ratio:1/1;
-  border-radius:26px;
-  overflow:hidden;
-  background:#000;
-  border:3px solid var(--rose);
-  box-shadow:0 0 50px var(--rose);
-  animation:breathe 4s ease-in-out infinite;
-}
-.nala-avatar{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* SPEECH SOUS NALA */
-.speech{
-  margin-top:10px;
-  padding:12px 20px;
+  padding:14px 24px;
   background:rgba(0,0,0,0.8);
-  border-radius:24px;
-  font-size:15px;
+  border-radius:28px;
+  font-size:16px;
   font-style:italic;
   color:var(--rose-soft);
   max-width:90vw;
+  text-align:center;
   opacity:0;
   transition:opacity 0.6s;
+  z-index:10;
 }
 .speech.show{opacity:1;}
 
-/* MENU EMOJI */
+/* MENU EMOJI (7 buttons, wrap) */
 .menu{
   position:absolute;
   bottom:calc(env(safe-area-inset-bottom) + 12px);
   width:100%;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
   gap:10px;
   padding:0 12px;
 }
 
 .menu button{
-  padding:16px 0;
+  padding:14px;
+  min-width:60px;
   font-size:1.6rem;
   border:none;
   border-radius:16px;
@@ -200,18 +182,11 @@ h1 span{color:var(--rose)}
 </div>
 
 <div class="scene">
-  <!-- GRID VIDEOS -->
   <div class="grid solo" id="grid">
     <!-- Rempli par JS avec emojis initiaux -->
   </div>
 
-  <!-- NALA CUBE BAS + SPEECH -->
-  <div class="nala-container">
-    <div class="nala-node">
-      <img src="nala.jpg" alt="Nala" class="nala-avatar">
-    </div>
-    <div class="speech" id="speech">Mmmh bb... je te regarde...</div>
-  </div>
+  <div class="speech" id="speech">Mmmh bb... charge une vidéo pour moi...</div>
 </div>
 
 <div class="help">Swipe ← → changer mode · Emoji = charger vidéo</div>
@@ -221,6 +196,9 @@ h1 span{color:var(--rose)}
   <button>👅💦</button>
   <button>🍑🔥</button>
   <button>⭐🏠</button>
+  <button>👅🖤</button>
+  <button>🍑💦</button>
+  <button>👄🔥</button>
 </div>
 
 <audio id="nalaAudio" loop>
@@ -243,19 +221,25 @@ const modes=[
 ];
 
 const videos = [
-  'https://xhamster.com/videos/girlsrimming-curiosity-of-the-youth-xhQxxhoY',
-  'https://xhamster.com/videos/girlsrimming-rimjobs-over-protein-shakes-xhECXYa',
-  'https://xhamster.com/videos/summer-anal-sex-fun-in-the-village-with-stepbrother-xhwKRAN',
-  'https://xhamster.com/videos/lucky-mature-guy-gets-to-fuck-these-innocent-hotties-in-his-house-xhbytBL'
+  'https://xhamster.com/xembed.php?video=xhQxxhoY?autoplay=1&mute=1',
+  'https://xhamster.com/xembed.php?video=xhECXYa?autoplay=1&mute=1',
+  'https://xhamster.com/xembed.php?video=xhwKRAN?autoplay=1&mute=1',
+  'https://xhamster.com/xembed.php?video=xhbytBL?autoplay=1&mute=1',
+  'https://xhamster.com/xembed.php?video=xhsGXEZ?autoplay=1&mute=1',
+  'https://www.pornhub.com/embed/68d10171d5cbc?autoplay=1&mute=1',
+  'https://www.xvideos.com/embedframe/hbtmlodeb25?autoplay=1&mute=1'
 ];
 
-const emojis = ['👅🍑', '👅💦', '🍑🔥', '⭐🏠'];
+const emojis = ['👅🍑', '👅💦', '🍑🔥', '⭐🏠', '👅🖤', '🍑💦', '👄🔥'];
 
 const phrases = [
-  "Mmmh bb... regarde cette langue qui explore ton cul lentement...",
-  "Oui... lèche-moi comme ça... mouillé, profond...",
-  "Ton cul prend tout... sens comme ça chauffe...",
-  "Regarde ces jeunes... je vais te faire pareil, bb..."
+  "Mmmh bb... cette langue explore ton cul avec curiosité... lentement, mouillé...",
+  "Oui... rimjob intense... lèche-moi profond, je te récompense...",
+  "Ton cul prend tout en été... baise-moi hard, sans pitié...",
+  "Mature qui domine les innocentes... je te fais pareil, bb...",
+  "J'ai léché son cul bien... et il m'a récompensée avec du gros... thank you daddy...",
+  "Sens les doigts ou la langue sur ta prostate... coule pour moi...",
+  "Anal hard... cris, rythme bestial, remplis-moi..."
 ];
 
 function render(){
@@ -272,7 +256,7 @@ function render(){
 function loadVideo(url, index){
   const nodes = grid.querySelectorAll('.node');
   if(nodes[slot]){
-    nodes[slot].innerHTML = `<iframe src="${url}?autoplay=1&mute=1" allowfullscreen></iframe>`;
+    nodes[slot].innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
     slot = (slot + 1) % nodes.length;
   }
   speech.textContent = phrases[index];
@@ -302,9 +286,6 @@ document.addEventListener('touchend',e=>{
     render();
   }
 });
-
-// Tap Nala for audio
-document.querySelector('.nala-node').onclick = toggleAudio;
 
 render();
 </script>
