@@ -56,7 +56,7 @@ h1 span{color:var(--rose)}
 
 /* SCENE */
 .scene{
-  height:65vh;
+  height:70vh;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -64,19 +64,44 @@ h1 span{color:var(--rose)}
   position:relative;
 }
 
-/* GRID */
+/* NALA CUBE CENTRAL FIXE */
+.nala-node{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:min(35vw,180px);
+  aspect-ratio:1/1;
+  border-radius:26px;
+  overflow:hidden;
+  background:#000;
+  border:3px solid var(--rose);
+  box-shadow:0 0 50px var(--rose);
+  z-index:10;
+  animation:breathe 4s ease-in-out infinite;
+}
+.nala-avatar{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* GRID VIDEOS AUTOUR */
 .grid{
   display:grid;
-  gap:4vw;
+  gap:5vw;
   transition:all .6s ease;
-  position:relative;
+  position:absolute;
+  width:100%;
+  height:100%;
+  padding:10vw;
   z-index:5;
 }
-.grid.solo{grid-template-columns:1fr}
-.grid.duo{grid-template-columns:1fr 1fr}
-.grid.quad{grid-template-columns:1fr 1fr}
+.grid.solo{grid-template-areas:"v1"}
+.grid.duo{grid-template-areas:"v1 v2"}
+.grid.quad{grid-template-areas:"v1 v2" "v3 v4"}
 
-/* NODE (vidéo) */
+/* NODE VIDEO */
 .node{
   aspect-ratio:1/1;
   border-radius:26px;
@@ -85,6 +110,11 @@ h1 span{color:var(--rose)}
   border:2px solid #ff7fbf55;
   box-shadow:0 0 36px rgba(255,111,174,.18);
   animation:breathe 4.2s ease-in-out infinite;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:6rem; /* Gros emoji initial */
+  color:var(--rose-soft);
 }
 .node iframe{
   width:100%;
@@ -92,40 +122,30 @@ h1 span{color:var(--rose)}
   border:0;
 }
 
-/* NALA EN BAS CENTRE */
-.nala-container{
-  position:absolute;
-  bottom:18%;
-  left:50%;
-  transform:translateX(-50%);
-  width:140px;
-  text-align:center;
-  z-index:10;
-}
-.nala-avatar{
-  width:100%;
-  border-radius:30px;
-  box-shadow:0 0 40px var(--rose);
-  animation:nalaPulse 5s ease-in-out infinite;
-}
-@keyframes nalaPulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.08);}
-  100%{transform:scale(1);}
+/* BREATH */
+@keyframes breathe{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.06)}
+  100%{transform:scale(1)}
 }
 
-/* SPEECH BUBBLE NALA */
+/* SPEECH BUBBLE SOUS NALA */
 .speech{
-  margin-top:8px;
-  padding:10px 16px;
+  position:absolute;
+  bottom:12%;
+  left:50%;
+  transform:translateX(-50%);
+  padding:12px 20px;
   background:rgba(0,0,0,0.7);
-  border-radius:20px;
-  font-size:13px;
+  border-radius:24px;
+  font-size:14px;
   font-style:italic;
   color:var(--rose-soft);
+  max-width:80vw;
+  text-align:center;
   opacity:0;
   transition:opacity 0.6s;
-  max-width:220px;
+  z-index:11;
 }
 .speech.show{opacity:1;}
 
@@ -153,10 +173,10 @@ h1 span{color:var(--rose)}
 /* HELP */
 .help{
   position:absolute;
-  bottom:calc(env(safe-area-inset-bottom) + 60px);
+  bottom:calc(env(safe-area-inset-bottom) + 70px);
   width:100%;
   text-align:center;
-  font-size:11px;
+  font-size:12px;
   letter-spacing:.28em;
   color:var(--ink-dim);
 }
@@ -184,109 +204,10 @@ h1 span{color:var(--rose)}
 </div>
 
 <div class="scene">
-  <div class="grid solo" id="grid">
-    <!-- Nodes remplis par JS -->
-  </div>
-
-  <!-- NALA EN BAS CENTRE -->
-  <div class="nala-container">
+  <!-- NALA CUBE CENTRAL -->
+  <div class="nala-node">
     <img src="nala.jpg" alt="Nala" class="nala-avatar">
-    <div class="speech" id="speech">Mmmh bb... je te regarde...</div>
   </div>
-</div>
+  <div class="speech" id="speech">Mmmh bb... je te regarde...</div>
 
-<div class="help">Swipe ← → changer mode · Emoji = charger vidéo</div>
-
-<div class="menu">
-  <button>👅🍑</button>
-  <button>👅💦</button>
-  <button>🍑🔥</button>
-  <button>⭐🏠</button>
-</div>
-
-<audio id="nalaAudio" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9b5d8e4e2a.mp3">
-</audio>
-
-<script>
-const grid=document.getElementById('grid');
-const label=document.getElementById('modeLabel');
-const speech=document.getElementById('speech');
-const audio=document.getElementById('nalaAudio');
-const btn=document.getElementById('audioBtn');
-
-let mode=0,audioOn=false, slot=0;
-const modes=[
- {cls:'solo',txt:'FOCUS · SOLO',n:1},
- {cls:'duo',txt:'SYNCHRO · DUO',n:2},
- {cls:'quad',txt:'SURCHARGE · QUAD',n:4}
-];
-
-const videos = [
-  'https://xhamster.com/videos/girlsrimming-curiosity-of-the-youth-xhQxxhoY',
-  'https://xhamster.com/videos/girlsrimming-rimjobs-over-protein-shakes-xhECXYa',
-  'https://xhamster.com/videos/summer-anal-sex-fun-in-the-village-with-stepbrother-xhwKRAN',
-  'https://xhamster.com/videos/lucky-mature-guy-gets-to-fuck-these-innocent-hotties-in-his-house-xhbytBL'
-];
-
-const phrases = [
-  "Mmmh bb... regarde cette langue qui explore ton cul... lentement...",
-  "Oui... lèche-moi comme ça... mouillé, profond...",
-  "Ton cul prend tout... sens comme ça chauffe...",
-  "Regarde ces jeunes innocentes... je vais te faire pareil..."
-];
-
-function render(){
- const m=modes[mode];
- grid.className='grid '+m.cls;
- grid.innerHTML='';
- for(let i=0;i<m.n;i++){
-  grid.innerHTML+=`<div class="node"><iframe></iframe></div>`;
- }
- label.textContent=m.txt;
- slot = 0;
-}
-
-function loadVideo(url, index){
-  const frames = grid.querySelectorAll('.node iframe');
-  if(frames[slot]){
-    frames[slot].src = url;
-    slot = (slot + 1) % frames.length;
-  }
-  // Speech Nala
-  speech.textContent = phrases[index];
-  speech.classList.add('show');
-  setTimeout(() => speech.classList.remove('show'), 4000);
-}
-
-function toggleAudio(){
-  audioOn=!audioOn;
-  if(audioOn) audio.play();
-  else audio.pause();
-  btn.textContent = audioOn ? '🔊 NALA' : '🔇 NALA';
-}
-
-// Emojis
-document.querySelectorAll('.menu button').forEach((b,i)=>{
-  b.onclick = () => loadVideo(videos[i], i);
-});
-
-// Swipe
-let sx=0;
-document.addEventListener('touchstart',e=> sx=e.touches[0].clientX);
-document.addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].clientX-sx;
-  if(Math.abs(dx)>40){
-    mode = (mode + (dx<0?1:-1) + modes.length) % modes.length;
-    render();
-  }
-});
-
-// Tap Nala for audio
-document.querySelector('.nala-avatar').onclick = toggleAudio;
-
-render();
-</script>
-
-</body>
-</html>
+  <!-- GRID VIDEOS
