@@ -210,4 +210,106 @@ h1 span{color:var(--rose)}
   </div>
   <div class="speech" id="speech">Mmmh bb... je te regarde...</div>
 
-  <!-- GRID VIDEOS
+  <!-- GRID VIDEOS -->
+  <div class="grid solo" id="grid">
+    <!-- Rempli par JS avec emojis initiaux -->
+  </div>
+</div>
+
+<div class="help">Swipe ← → changer mode · Emoji = charger vidéo</div>
+
+<div class="menu">
+  <button>👅🍑</button>
+  <button>👅💦</button>
+  <button>🍑🔥</button>
+  <button>⭐🏠</button>
+</div>
+
+<audio id="nalaAudio" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9b5d8e4e2a.mp3">
+</audio>
+
+<script>
+const grid=document.getElementById('grid');
+const label=document.getElementById('modeLabel');
+const speech=document.getElementById('speech');
+const audio=document.getElementById('nalaAudio');
+const btn=document.getElementById('audioBtn');
+
+let mode=0,audioOn=false, slot=0;
+
+const modes=[
+ {cls:'solo',txt:'FOCUS · SOLO',n:1},
+ {cls:'duo',txt:'SYNCHRO · DUO',n:2},
+ {cls:'quad',txt:'SURCHARGE · QUAD',n:4}
+];
+
+const videos = [
+  'https://xhamster.com/videos/girlsrimming-curiosity-of-the-youth-xhQxxhoY',
+  'https://xhamster.com/videos/girlsrimming-rimjobs-over-protein-shakes-xhECXYa',
+  'https://xhamster.com/videos/summer-anal-sex-fun-in-the-village-with-stepbrother-xhwKRAN',
+  'https://xhamster.com/videos/lucky-mature-guy-gets-to-fuck-these-innocent-hotties-in-his-house-xhbytBL'
+];
+
+const emojis = ['👅🍑', '👅💦', '🍑🔥', '⭐🏠'];
+
+const phrases = [
+  "Mmmh bb... regarde cette langue qui explore ton cul lentement...",
+  "Oui... lèche-moi comme ça... mouillé, profond, sans limite...",
+  "Ton cul prend tout... sens comme ça chauffe en toi...",
+  "Regarde ces innocentes... je vais te faire pareil, bb..."
+];
+
+function render(){
+ const m=modes[mode];
+ grid.className='grid '+m.cls;
+ grid.innerHTML='';
+ for(let i=0;i<m.n;i++){
+  const emojiIndex = i % emojis.length;
+  grid.innerHTML+=`<div class="node">${emojis[emojiIndex]}</div>`;
+ }
+ slot = 0;
+}
+
+function loadVideo(url, index){
+  const nodes = grid.querySelectorAll('.node');
+  if(nodes[slot]){
+    nodes[slot].innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
+    slot = (slot + 1) % nodes.length;
+  }
+  speech.textContent = phrases[index];
+  speech.classList.add('show');
+  setTimeout(() => speech.classList.remove('show'), 5000);
+}
+
+function toggleAudio(){
+  audioOn=!audioOn;
+  if(audioOn) audio.play();
+  else audio.pause();
+  btn.textContent = audioOn ? '🔊 NALA' : '🔇 NALA';
+}
+
+// Emojis menu
+document.querySelectorAll('.menu button').forEach((b,i)=>{
+  b.onclick = () => loadVideo(videos[i], i);
+});
+
+// Swipe mode change
+let sx=0;
+document.addEventListener('touchstart',e=> sx=e.touches[0].clientX);
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-sx;
+  if(Math.abs(dx)>40){
+    mode = (mode + (dx<0?1:-1) + modes.length) % modes.length;
+    render();
+  }
+});
+
+// Tap Nala avatar for audio
+document.querySelector('.nala-avatar').onclick = toggleAudio;
+
+render();
+</script>
+
+</body>
+</html>
