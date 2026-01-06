@@ -151,14 +151,14 @@ h1 span{color:var(--rose)}
   color:var(--ink-dim);
 }
 
-/* AUDIO */
+/* AUDIO TOGGLE */
 .audio{
   position:fixed;
   right:14px;
   top:14px;
   font-size:11px;
   letter-spacing:.2em;
-  opacity:.8;
+  opacity:.9;
 }
 </style>
 </head>
@@ -175,10 +175,10 @@ h1 span{color:var(--rose)}
 
 <div class="scene">
   <div class="grid solo" id="grid"></div>
-  <div class="speech" id="speech">Respire… reste là.</div>
+  <div class="speech" id="speech">Respire…</div>
 </div>
 
-<div class="help">Swipe ← → changer mode · Tap = présence</div>
+<div class="help">Swipe ← → changer mode · Tap emoji = présence</div>
 
 <div class="menu">
   <button>🫦</button>
@@ -193,6 +193,7 @@ h1 span{color:var(--rose)}
 </audio>
 
 <script>
+/* ===== GRID / MODES ===== */
 const grid = document.getElementById('grid');
 const label = document.getElementById('modeLabel');
 const speech = document.getElementById('speech');
@@ -204,20 +205,11 @@ let audioOn = false;
 
 const modes = [
  {cls:'solo', txt:'FOCUS · SOLO', n:1},
- {cls:'duo', txt:'SYNCHRO · DUO', n:2},
- {cls:'quad',txt:'SURCHARGE · QUAD', n:4}
+ {cls:'duo',  txt:'SYNCHRO · DUO', n:2},
+ {cls:'quad', txt:'SURCHARGE · QUAD', n:4}
 ];
 
 const sigils = ['🫦','💓','🔥','👁️','🌊'];
-
-const nalaLines = [
-  "Respire…",
-  "Reste là.",
-  "Laisse faire.",
-  "Plus lentement.",
-  "Ne pense pas.",
-  "Je suis avec toi."
-];
 
 function render(){
  const m = modes[mode];
@@ -229,40 +221,72 @@ function render(){
  label.textContent = m.txt;
 }
 
+/* ===== AUDIO ===== */
 function toggleAudio(){
  audioOn = !audioOn;
  if(audioOn){
   audio.volume = 0.15;
-  audio.play();
+  audio.play().catch(()=>{});
   btn.textContent = '🔊 NALA';
  }else{
   audio.pause();
   btn.textContent = '🔇 NALA';
  }
 }
+btn.onclick = toggleAudio;
+
+/* ===== NALA VOICE (ROBUST) ===== */
+const nalaLines = [
+  "Respire…",
+  "Reste là.",
+  "Laisse faire.",
+  "Plus lentement.",
+  "Ne pense pas.",
+  "Je suis avec toi."
+];
+
+let nalaVoices = [];
+speechSynthesis.onvoiceschanged = () => {
+  nalaVoices = speechSynthesis.getVoices();
+};
 
 function speakNala(){
- if(!audioOn || !('speechSynthesis' in window)) return;
- const u = new SpeechSynthesisUtterance(
-  nalaLines[Math.floor(Math.random()*nalaLines.length)]
- );
+ if(!('speechSynthesis' in window)) return;
+
+ // Doit être déclenché par action utilisateur
+ speechSynthesis.cancel();
+
+ const text = nalaLines[Math.floor(Math.random()*nalaLines.length)];
+ const u = new SpeechSynthesisUtterance(text);
+
  u.lang = 'fr-FR';
  u.rate = 0.75;
  u.pitch = 0.9;
- u.volume = 0.9;
- speech.textContent = u.text;
+ u.volume = 1;
+
+ const voice =
+   nalaVoices.find(v => v.lang.startsWith('fr') && v.name.toLowerCase().includes('female')) ||
+   nalaVoices.find(v => v.lang.startsWith('fr')) ||
+   nalaVoices[0];
+
+ if(voice) u.voice = voice;
+
+ speech.textContent = text;
  speech.classList.add('show');
  setTimeout(()=>speech.classList.remove('show'),2000);
+
  speechSynthesis.speak(u);
 }
 
-btn.onclick = toggleAudio;
-
+/* ===== MENU ACTIONS ===== */
 document.querySelectorAll('.menu button').forEach(b=>{
- b.onclick = speakNala;
+ b.onclick = ()=>{
+  if(!audioOn) toggleAudio(); // autorise l'audio
+  speakNala();               // Nala parle
+ };
 });
 
-// Swipe modes
+/* ===== SWIPE MODES ===== */
 let sx = 0;
 document.addEventListener('touchstart',e=>sx=e.touches[0].clientX);
 document.addEventListener('touchend',e=>{
@@ -273,6 +297,7 @@ document.addEventListener('touchend',e=>{
  }
 });
 
+/* INIT */
 render();
 </script>
 
