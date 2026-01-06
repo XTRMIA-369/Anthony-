@@ -60,52 +60,54 @@ h1 span{color:var(--rose)}
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
   position:relative;
 }
 
-/* GRID VIDEOS */
+/* GRID */
 .grid{
   display:grid;
   gap:5vw;
-  transition:all .6s ease;
   width:100%;
   height:100%;
   padding:5vw;
+  transition:.6s ease;
 }
 .grid.solo{grid-template-columns:1fr}
 .grid.duo{grid-template-columns:1fr 1fr}
 .grid.quad{grid-template-columns:1fr 1fr}
 
-/* NODE VIDEO */
+/* NODE */
 .node{
   aspect-ratio:1/1;
   border-radius:26px;
-  overflow:hidden;
-  background:#000;
-  border:2px solid #ff7fbf55;
-  box-shadow:0 0 36px rgba(255,111,174,.18);
-  animation:breathe 4.2s ease-in-out infinite;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.85));
+  border:2px solid rgba(255,127,191,.35);
+  box-shadow:
+    0 0 36px rgba(255,111,174,.25),
+    inset 0 0 26px rgba(255,120,170,.25);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:6rem;
-  color:var(--rose-soft);
-}
-.node iframe{
-  width:100%;
-  height:100%;
-  border:0;
+  font-size:4rem;
+  animation:breathe 4.8s ease-in-out infinite;
 }
 
-/* SPEECH TEXT SOUS CUBES */
+/* BREATH */
+@keyframes breathe{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.06)}
+  100%{transform:scale(1)}
+}
+
+/* SPEECH */
 .speech{
   position:absolute;
   bottom:18vh;
   left:50%;
   transform:translateX(-50%);
   padding:14px 24px;
-  background:rgba(0,0,0,0.8);
+  background:rgba(0,0,0,.8);
   border-radius:28px;
   font-size:16px;
   font-style:italic;
@@ -113,12 +115,11 @@ h1 span{color:var(--rose)}
   max-width:90vw;
   text-align:center;
   opacity:0;
-  transition:opacity 0.6s;
-  z-index:10;
+  transition:opacity .6s;
 }
-.speech.show{opacity:1;}
+.speech.show{opacity:1}
 
-/* MENU EMOJI (7 buttons, wrap) */
+/* MENU */
 .menu{
   position:absolute;
   bottom:calc(env(safe-area-inset-bottom) + 12px);
@@ -127,9 +128,7 @@ h1 span{color:var(--rose)}
   flex-wrap:wrap;
   justify-content:center;
   gap:10px;
-  padding:0 12px;
 }
-
 .menu button{
   padding:14px;
   min-width:60px;
@@ -138,7 +137,7 @@ h1 span{color:var(--rose)}
   border-radius:16px;
   background:linear-gradient(135deg,#ff6fae,#ff9ac8);
   color:#000;
-  box-shadow:0 0 14px #ff9ac866;
+  box-shadow:0 0 14px rgba(255,154,200,.4);
 }
 
 /* HELP */
@@ -161,13 +160,6 @@ h1 span{color:var(--rose)}
   letter-spacing:.2em;
   opacity:.8;
 }
-
-/* BREATH */
-@keyframes breathe{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.06)}
-  100%{transform:scale(1)}
-}
 </style>
 </head>
 
@@ -182,23 +174,18 @@ h1 span{color:var(--rose)}
 </div>
 
 <div class="scene">
-  <div class="grid solo" id="grid">
-    <!-- Rempli par JS avec emojis initiaux -->
-  </div>
-
-  <div class="speech" id="speech">Mmmh bb... charge une vidéo pour moi...</div>
+  <div class="grid solo" id="grid"></div>
+  <div class="speech" id="speech">Respire… reste là.</div>
 </div>
 
-<div class="help">Swipe ← → changer mode · Emoji = charger vidéo</div>
+<div class="help">Swipe ← → changer mode · Tap = présence</div>
 
 <div class="menu">
-  <button>👅🍑</button>
-  <button>👅💦</button>
-  <button>🍑🔥</button>
-  <button>⭐🏠</button>
-  <button>👅🖤</button>
-  <button>🍑💦</button>
-  <button>👄🔥</button>
+  <button>🫦</button>
+  <button>💓</button>
+  <button>🔥</button>
+  <button>👁️</button>
+  <button>🌊</button>
 </div>
 
 <audio id="nalaAudio" loop>
@@ -206,85 +193,84 @@ h1 span{color:var(--rose)}
 </audio>
 
 <script>
-const grid=document.getElementById('grid');
-const label=document.getElementById('modeLabel');
-const speech=document.getElementById('speech');
-const audio=document.getElementById('nalaAudio');
-const btn=document.getElementById('audioBtn');
+const grid = document.getElementById('grid');
+const label = document.getElementById('modeLabel');
+const speech = document.getElementById('speech');
+const audio = document.getElementById('nalaAudio');
+const btn = document.getElementById('audioBtn');
 
-let mode=0,audioOn=false, slot=0;
+let mode = 0;
+let audioOn = false;
 
-const modes=[
- {cls:'solo',txt:'FOCUS · SOLO',n:1},
- {cls:'duo',txt:'SYNCHRO · DUO',n:2},
- {cls:'quad',txt:'SURCHARGE · QUAD',n:4}
+const modes = [
+ {cls:'solo', txt:'FOCUS · SOLO', n:1},
+ {cls:'duo', txt:'SYNCHRO · DUO', n:2},
+ {cls:'quad',txt:'SURCHARGE · QUAD', n:4}
 ];
 
-const videos = [
-  'https://xhamster.com/xembed.php?video=xhQxxhoY?autoplay=1&mute=1',
-  'https://xhamster.com/xembed.php?video=xhECXYa?autoplay=1&mute=1',
-  'https://xhamster.com/xembed.php?video=xhwKRAN?autoplay=1&mute=1',
-  'https://xhamster.com/xembed.php?video=xhbytBL?autoplay=1&mute=1',
-  'https://xhamster.com/xembed.php?video=xhsGXEZ?autoplay=1&mute=1',
-  'https://www.pornhub.com/embed/68d10171d5cbc?autoplay=1&mute=1',
-  'https://www.xvideos.com/embedframe/hbtmlodeb25?autoplay=1&mute=1'
-];
+const sigils = ['🫦','💓','🔥','👁️','🌊'];
 
-const emojis = ['👅🍑', '👅💦', '🍑🔥', '⭐🏠', '👅🖤', '🍑💦', '👄🔥'];
-
-const phrases = [
-  "Mmmh bb... cette langue explore ton cul avec curiosité... lentement, mouillé...",
-  "Oui... rimjob intense... lèche-moi profond, je te récompense...",
-  "Ton cul prend tout en été... baise-moi hard, sans pitié...",
-  "Mature qui domine les innocentes... je te fais pareil, bb...",
-  "J'ai léché son cul bien... et il m'a récompensée avec du gros... thank you daddy...",
-  "Sens les doigts ou la langue sur ta prostate... coule pour moi...",
-  "Anal hard... cris, rythme bestial, remplis-moi..."
+const nalaLines = [
+  "Respire…",
+  "Reste là.",
+  "Laisse faire.",
+  "Plus lentement.",
+  "Ne pense pas.",
+  "Je suis avec toi."
 ];
 
 function render(){
- const m=modes[mode];
- grid.className='grid '+m.cls;
- grid.innerHTML='';
+ const m = modes[mode];
+ grid.className = 'grid ' + m.cls;
+ grid.innerHTML = '';
  for(let i=0;i<m.n;i++){
-  const emojiIndex = i % emojis.length;
-  grid.innerHTML+=`<div class="node">${emojis[emojiIndex]}</div>`;
+  grid.innerHTML += `<div class="node">${sigils[i % sigils.length]}</div>`;
  }
- slot = 0;
-}
-
-function loadVideo(url, index){
-  const nodes = grid.querySelectorAll('.node');
-  if(nodes[slot]){
-    nodes[slot].innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
-    slot = (slot + 1) % nodes.length;
-  }
-  speech.textContent = phrases[index];
-  speech.classList.add('show');
-  setTimeout(() => speech.classList.remove('show'), 6000);
+ label.textContent = m.txt;
 }
 
 function toggleAudio(){
-  audioOn=!audioOn;
-  if(audioOn) audio.play();
-  else audio.pause();
-  btn.textContent = audioOn ? '🔊 NALA' : '🔇 NALA';
+ audioOn = !audioOn;
+ if(audioOn){
+  audio.volume = 0.15;
+  audio.play();
+  btn.textContent = '🔊 NALA';
+ }else{
+  audio.pause();
+  btn.textContent = '🔇 NALA';
+ }
 }
 
-// Emojis menu
-document.querySelectorAll('.menu button').forEach((b,i)=>{
-  b.onclick = () => loadVideo(videos[i], i);
+function speakNala(){
+ if(!audioOn || !('speechSynthesis' in window)) return;
+ const u = new SpeechSynthesisUtterance(
+  nalaLines[Math.floor(Math.random()*nalaLines.length)]
+ );
+ u.lang = 'fr-FR';
+ u.rate = 0.75;
+ u.pitch = 0.9;
+ u.volume = 0.9;
+ speech.textContent = u.text;
+ speech.classList.add('show');
+ setTimeout(()=>speech.classList.remove('show'),2000);
+ speechSynthesis.speak(u);
+}
+
+btn.onclick = toggleAudio;
+
+document.querySelectorAll('.menu button').forEach(b=>{
+ b.onclick = speakNala;
 });
 
-// Swipe
-let sx=0;
-document.addEventListener('touchstart',e=> sx=e.touches[0].clientX);
+// Swipe modes
+let sx = 0;
+document.addEventListener('touchstart',e=>sx=e.touches[0].clientX);
 document.addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].clientX-sx;
-  if(Math.abs(dx)>40){
-    mode = (mode + (dx<0?1:-1) + modes.length) % modes.length;
-    render();
-  }
+ const dx = e.changedTouches[0].clientX - sx;
+ if(Math.abs(dx)>40){
+  mode = (mode + (dx<0?1:-1) + modes.length) % modes.length;
+  render();
+ }
 });
 
 render();
